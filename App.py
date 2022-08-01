@@ -1,12 +1,12 @@
 # Core Pkgs
 import streamlit as st 
 st.set_page_config(layout="wide")
-nltk.download('stopwords')
+# nltk.download('stopwords')
 
 # EDA Pkgs
 import pandas as pd 
 import numpy as np 
-from nltk.corpus import stopwords
+# from nltk.corpus import stopwords
 import re
 
 # Utils
