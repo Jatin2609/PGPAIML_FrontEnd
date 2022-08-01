@@ -1,7 +1,7 @@
 # Core Pkgs
 import streamlit as st 
 st.set_page_config(layout="wide")
-
+nltk.download(‘stopwords’)
 
 # EDA Pkgs
 import pandas as pd 
