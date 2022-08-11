@@ -98,9 +98,9 @@ with st.form("my_form"):
             for i in range(len(dfs)):
                 if(dfs.iloc[i, 0]== dfs.iloc[i, 1]):
                     dfs.iloc[i,1]="" 
-
             dfs["issue_description"]=dfs["Short description"] + " " + dfs["Description"]
-            if dfs.loc[0,'issue_description']=='' :
+            
+            if dfs.shape[0] ==0:
                 st.write('Please enter valid short description or description')
             else:
                 pred = pipe_lr.predict(dfs["issue_description"])
