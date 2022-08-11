@@ -11,7 +11,7 @@ import re
 
 # Utils
 import joblib 
-pipe_lr = joblib.load(open("Capstone_31_07.pkl","rb"))
+pipe_lr = joblib.load(open("Capstone_08_11.pkl","rb"))
 
 header = st.container()
 model_prediction = st.container()
