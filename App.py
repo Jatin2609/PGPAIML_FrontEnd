@@ -84,7 +84,7 @@ with st.form("my_form"):
     submitted = st.form_submit_button("Submit")
     if submitted:
         if (myString == "") or (myString == ""):
-            st.write('Please enter valid short description or description)
+            st.write('Please enter valid short description or description')
         else: 
         dfs.at[0, 'Description'] = long_desc
         dfs.at[0,'Short description'] = short_desc
