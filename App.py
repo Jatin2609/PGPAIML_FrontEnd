@@ -86,28 +86,28 @@ with st.form("my_form"):
         if (myString == "") or (myString == ""):
             st.write('Please enter valid short description or description')
         else: 
-        dfs.at[0, 'Description'] = long_desc
-        dfs.at[0,'Short description'] = short_desc
-        # preprocessing both columns
-        dfs = preprocess_text(dfs, column_name='Description')
-        dfs = preprocess_text(dfs, column_name='Short description')
-        # Lemmatizing both columns
-        dfs['Short description'] = dfs['Short description'].apply(lambda s:lemmitize(s))
-        dfs['Description'] = dfs['Description'].apply(lambda s:lemmitize(s))
-        # Concatenating both columns
-        for i in range(len(dfs)):
-            if(dfs.iloc[i, 0]== dfs.iloc[i, 1]):
-                dfs.iloc[i,1]="" 
+            dfs.at[0, 'Description'] = long_desc
+            dfs.at[0,'Short description'] = short_desc
+            # preprocessing both columns
+            dfs = preprocess_text(dfs, column_name='Description')
+            dfs = preprocess_text(dfs, column_name='Short description')
+            # Lemmatizing both columns
+            dfs['Short description'] = dfs['Short description'].apply(lambda s:lemmitize(s))
+            dfs['Description'] = dfs['Description'].apply(lambda s:lemmitize(s))
+            # Concatenating both columns
+            for i in range(len(dfs)):
+                if(dfs.iloc[i, 0]== dfs.iloc[i, 1]):
+                    dfs.iloc[i,1]="" 
 
-        dfs["issue_description"]=dfs["Short description"] + " " + dfs["Description"]
-        pred = pipe_lr.predict(dfs["issue_description"])
-        pred_prob = pipe_lr.predict_proba(dfs["issue_description"])
-        pred_prob.sort()
-        if pred_prob[:,-1]-pred_prob[:,-2] >0.5:
-            st.write('The ticket is assigned to :',pred[0] )
-            st.write('Probability given by model:',pred_prob.max() )
-        else :
-            st.write('The ticket cannot be assigned automatically with a reasonable accuracy. Assigning it to manual assignment team' )
+            dfs["issue_description"]=dfs["Short description"] + " " + dfs["Description"]
+            pred = pipe_lr.predict(dfs["issue_description"])
+            pred_prob = pipe_lr.predict_proba(dfs["issue_description"])
+            pred_prob.sort()
+            if pred_prob[:,-1]-pred_prob[:,-2] >0.5:
+                st.write('The ticket is assigned to :',pred[0] )
+                st.write('Probability given by model:',pred_prob.max() )
+            else :
+                st.write('The ticket cannot be assigned automatically with a reasonable accuracy. Assigning it to manual assignment team' )
         
     
     
