@@ -83,6 +83,9 @@ with st.form("my_form"):
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
+        if (myString == "") or (myString == ""):
+            st.write('Please enter valid short description or description)
+        else: 
         dfs.at[0, 'Description'] = long_desc
         dfs.at[0,'Short description'] = short_desc
         # preprocessing both columns
@@ -97,7 +100,6 @@ with st.form("my_form"):
                 dfs.iloc[i,1]="" 
 
         dfs["issue_description"]=dfs["Short description"] + " " + dfs["Description"]
-        
         pred = pipe_lr.predict(dfs["issue_description"])
         pred_prob = pipe_lr.predict_proba(dfs["issue_description"])
         pred_prob.sort()
