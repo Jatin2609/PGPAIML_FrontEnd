@@ -83,9 +83,8 @@ with st.form("my_form"):
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
-#         short_desc = [short_desc]
-        dfs['Description'] = long_desc
-        dfs['Short description'] = short_desc
+        dfs.at[0, 'Description'] = long_desc
+        dfs.at[0,'Short description'] = short_desc
         # preprocessing both columns
         dfs = preprocess_text(dfs, column_name='Description')
         dfs = preprocess_text(dfs, column_name='Short description')
