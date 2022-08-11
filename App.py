@@ -100,14 +100,17 @@ with st.form("my_form"):
                     dfs.iloc[i,1]="" 
 
             dfs["issue_description"]=dfs["Short description"] + " " + dfs["Description"]
-            pred = pipe_lr.predict(dfs["issue_description"])
-            pred_prob = pipe_lr.predict_proba(dfs["issue_description"])
-            pred_prob.sort()
-            if pred_prob[:,-1]-pred_prob[:,-2] >0.5:
-                st.write('The ticket is assigned to :',pred[0] )
-                st.write('Probability given by model:',pred_prob.max() )
-            else :
-                st.write('The ticket cannot be assigned automatically with a reasonable accuracy. Assigning it to manual assignment team' )
+            if (dfs["issue_description"] == "") :
+                st.write('Please enter valid short description or description')
+            else:
+                pred = pipe_lr.predict(dfs["issue_description"])
+                pred_prob = pipe_lr.predict_proba(dfs["issue_description"])
+                pred_prob.sort()
+                if pred_prob[:,-1]-pred_prob[:,-2] >0.5:
+                    st.write('The ticket is assigned to :',pred[0] )
+                    st.write('Probability given by model:',pred_prob.max() )
+                else :
+                    st.write('The ticket cannot be assigned automatically with a reasonable accuracy. Assigning it to manual assignment team' )
         
     
     
