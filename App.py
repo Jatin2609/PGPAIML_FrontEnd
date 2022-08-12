@@ -117,7 +117,7 @@ with st.form("my_form"):
                     df_prediction = df_prediction.sort_values(by='probs',ascending = False, ignore_index=True)
                     st.write('The ticket cannot be assigned automatically with a reasonable accuracy. Assigning it to manual assignment team' )
                     st.write('This ticket is expected to be assigned to group : ', df_prediction.loc[0,'Classes'], 'with a probability of ', df_prediction.loc[0,'probs']\
-                             ,'and group: ', df_prediction.loc[1,'Classes'], 'with a probability of ', df_prediction.loc[1,'probs'] )
+                             ,'and, group: ', df_prediction.loc[1,'Classes'], 'with a probability of ', df_prediction.loc[1,'probs'] )
         
     
     
