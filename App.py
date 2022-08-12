@@ -11,7 +11,7 @@ import re
 
 # Utils
 import joblib 
-pipe_lr = joblib.load(open("Capstone_08_11.pkl","rb"))
+pipe_lr = joblib.load(open("Capstone_08_12.pkl","rb"))
 
 header = st.container()
 model_prediction = st.container()
@@ -80,6 +80,7 @@ with st.form("my_form"):
     short_desc = st.text_input('Plesase provide a short description of your issue')
     long_desc = st.text_input('Plesase provide the description of your issue')
     dfs = pd.DataFrame()
+    df_prediction = pd.DataFrame()
     # Every form must have a submit button.
     submitted = st.form_submit_button("Submit")
     if submitted:
@@ -106,11 +107,16 @@ with st.form("my_form"):
                 pred = pipe_lr.predict(dfs["issue_description"])
                 pred_prob = pipe_lr.predict_proba(dfs["issue_description"])
                 pred_prob.sort()
-                if pred_prob[:,-1]-pred_prob[:,-2] >0.5:
+                if pred_prob[:,-1]-pred_prob[:,-2] >0.3:
                     st.write('The ticket is assigned to :',pred[0] )
                     st.write('Probability given by model:',pred_prob.max() )
                 else :
+                    df_prediction['Classes'] = pipe_lr.classes_
+                    df_prediction['probs'] = np.transpose(prob)
+                    df_prediction = df_prediction.sort_values(by='probs',ascending = False, ignore_index=True)
                     st.write('The ticket cannot be assigned automatically with a reasonable accuracy. Assigning it to manual assignment team' )
+                    st.write('This ticket is expected to be assigned to group : ', df_prediction.loc[0,'Classes'], 'with a probability of ', df_prediction.loc[0,'probs']\
+                             ,'and group: ', df_prediction.loc[1,'Classes'], 'with a probability of ', df_prediction.loc[1,'probs'] )
         
     
     
