@@ -112,6 +112,7 @@ with st.form("my_form"):
                     st.write('Probability given by model:',pred_prob.max() )
                 else :
                     df_prediction['Classes'] = pipe_lr.classes_
+                    prob = pipe_lr.predict_proba(dfs["issue_description"])
                     df_prediction['probs'] = np.transpose(prob)
                     df_prediction = df_prediction.sort_values(by='probs',ascending = False, ignore_index=True)
                     st.write('The ticket cannot be assigned automatically with a reasonable accuracy. Assigning it to manual assignment team' )
